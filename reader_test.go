@@ -17,7 +17,7 @@ func Example() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Printf("%#v\n", lines1)
+	fmt.Printf("Without macreader: %#v\n", lines1)
 
 	// Now try reading the csv file using macreader.
 	// It should work as expected.
@@ -26,9 +26,9 @@ func Example() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Printf("%#v\n", lines2)
+	fmt.Printf("With macreader: %#v\n", lines2)
 
-	// Output: [][]string{[]string{"a", "b", "c\r1", "2", "3"}}
-	// [][]string{[]string{"a", "b", "c"}, []string{"1", "2", "3"}}
+	// Output: Without macreader: [][]string{[]string{"a", "b", "c\r1", "2", "3"}}
+	// With macreader: [][]string{[]string{"a", "b", "c"}, []string{"1", "2", "3"}}
 
 }
