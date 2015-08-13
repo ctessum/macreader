@@ -20,7 +20,7 @@ func Example() {
 	fmt.Printf("%#v\n", lines1)
 
 	// Now try reading the csv file using macreader.
-	// It should work as expected
+	// It should work as expected.
 	r2 := csv.NewReader(New(bytes.NewReader(testFile)))
 	lines2, err := r2.ReadAll()
 	if err != nil {
