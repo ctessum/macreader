@@ -46,7 +46,7 @@ func TestCR(t *testing.T) {
 		t.Errorf("An error occurred while reading the data: %v", err)
 	}
 	if len(lines) != 2 {
-		t.Error("Wrong number of lines. Expected 2, got %d", len(lines))
+		t.Errorf("Wrong number of lines. Expected 2, got %d", len(lines))
 	}
 }
 
@@ -60,7 +60,7 @@ func TestLF(t *testing.T) {
 		t.Errorf("An error occurred while reading the data: %v", err)
 	}
 	if len(lines) != 2 {
-		t.Error("Wrong number of lines. Expected 2, got %d", len(lines))
+		t.Errorf("Wrong number of lines. Expected 2, got %d", len(lines))
 	}
 }
 
@@ -74,7 +74,7 @@ func TestCRLF(t *testing.T) {
 		t.Errorf("An error occurred while reading the data: %v", err)
 	}
 	if len(lines) != 2 {
-		t.Error("Wrong number of lines. Expected 2, got %d", len(lines))
+		t.Errorf("Wrong number of lines. Expected 2, got %d", len(lines))
 	}
 }
 
@@ -88,7 +88,7 @@ func TestCRInQuote(t *testing.T) {
 		t.Errorf("An error occurred while reading the data: %v", err)
 	}
 	if len(lines) != 2 {
-		t.Error("Wrong number of lines. Expected 2, got %d", len(lines))
+		t.Errorf("Wrong number of lines. Expected 2, got %d", len(lines))
 	}
 	if strings.Contains(lines[1][1], "\n\n") {
 		t.Error("The CRLF was converted to a LFLF")
