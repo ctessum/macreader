@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/csv"
 	"fmt"
+	"strings"
 )
 
 func Example() {
@@ -88,5 +89,8 @@ func TestCRInQuote(t *testing.T) {
 	}
 	if len(lines) != 2 {
 		t.Error("Wrong number of lines. Expected 2, got %d", len(lines))
+	}
+	if strings.Contains(lines[1][1], "\n\n") {
+		t.Error("The CRLF was converted to a LFLF")
 	}
 }
