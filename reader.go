@@ -27,7 +27,7 @@ func New(r io.Reader) io.Reader {
 func (r reader) Read(p []byte) (n int, err error) {
 	n, err = r.r.Read(p)
 	for i, b := range p {
-		if b == rByte {
+		if b == rByte && i < len(p) && p[i+1] != nByte {
 			p[i] = nByte
 		}
 	}

@@ -1,6 +1,7 @@
 package macreader
 
 import (
+	"testing"
 	"bytes"
 	"encoding/csv"
 	"fmt"
@@ -31,4 +32,61 @@ func Example() {
 	// Output: Without macreader: [][]string{[]string{"a", "b", "c\r1", "2", "3"}}
 	// With macreader: [][]string{[]string{"a", "b", "c"}, []string{"1", "2", "3"}}
 
+}
+
+
+func TestCR(t *testing.T) {
+	testFile := bytes.NewBufferString("a,b,c\r1,2,3\r").Bytes()
+
+	r := csv.NewReader(New(bytes.NewReader(testFile)))
+	lines, err := r.ReadAll()
+
+	if err != nil {
+		t.Errorf("An error occurred while reading the data: %v", err)
+	}
+	if len(lines) != 2 {
+		t.Error("Wrong number of lines. Expected 2, got %d", len(lines))
+	}
+}
+
+func TestLF(t *testing.T) {
+	testFile := bytes.NewBufferString("a,b,c\n1,2,3\n").Bytes()
+
+	r := csv.NewReader(New(bytes.NewReader(testFile)))
+	lines, err := r.ReadAll()
+
+	if err != nil {
+		t.Errorf("An error occurred while reading the data: %v", err)
+	}
+	if len(lines) != 2 {
+		t.Error("Wrong number of lines. Expected 2, got %d", len(lines))
+	}
+}
+
+func TestCRLF(t *testing.T) {
+	testFile := bytes.NewBufferString("a,b,c\r\n1,2,3\r\n").Bytes()
+
+	r := csv.NewReader(New(bytes.NewReader(testFile)))
+	lines, err := r.ReadAll()
+
+	if err != nil {
+		t.Errorf("An error occurred while reading the data: %v", err)
+	}
+	if len(lines) != 2 {
+		t.Error("Wrong number of lines. Expected 2, got %d", len(lines))
+	}
+}
+
+func TestCRInQuote(t *testing.T) {
+	testFile := bytes.NewBufferString("a,\"foo,\rbar\",c\r1,\"2\r\n2\",3\r").Bytes()
+
+	r := csv.NewReader(New(bytes.NewReader(testFile)))
+	lines, err := r.ReadAll()
+
+	if err != nil {
+		t.Errorf("An error occurred while reading the data: %v", err)
+	}
+	if len(lines) != 2 {
+		t.Error("Wrong number of lines. Expected 2, got %d", len(lines))
+	}
 }
